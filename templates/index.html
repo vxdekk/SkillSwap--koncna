@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillSwap</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    {% if uporabnik and uporabnik.slika_url %}
+    <a href="/profil/{{ uporabnik.ime }}" class="profile-pic-topright" title="Moj profil">
+        <img src="{{ uporabnik.slika_url }}" alt="Profilna slika {{ uporabnik.ime }}">
+    </a>
+    {% endif %}
+
+    <!-- Navigacijski meni -->
+    <nav>
+        <a href="/">Domov</a>
+        <a href="/register">Registracija</a>
+        <a href="/search">Poišči učitelja</a>
+        {% if uporabnik %}
+            <a href="/logout">Odjava</a>
+        {% else %}
+            <a href="/login">Prijava</a>
+        {% endif %}
+    </nav>
+
+    <!-- Glavna vsebina -->
+    <div class="container">
+        <h1>SkillSwap</h1>
+        
+        <blockquote>SkillSwap je spletna aplikacija, kjer si uporabniki med seboj izmenjujejo znanje – vsak lahko ponudi veščino, ki jo že zna, in v zameno najde nekoga, ki ga nauči nekaj novega.</blockquote>
+        <blockquote>💡 Na primer: nekdo, ki zna programirati, lahko uči druge v zameno za tečaj grafičnega oblikovanja.</blockquote>
+            
+        <blockquote>👉 Cilj je učenje skozi sodelovanje, brez denarja – samo z deljenjem znanja.</blockquote>
+        <a href="/register" class="button">Začni zdaj</a>
+    </div>
+
+
+
+</body>
+</html>

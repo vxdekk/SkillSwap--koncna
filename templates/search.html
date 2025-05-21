@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+    <meta charset="UTF-8">
+    <title>Iskanje | SkillSwap</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1e1e2f, #3a3a5e);
+            color: white;
+            text-align: center;
+        }
+
+        .search-container {
+            max-width: 450px;
+            padding: 25px 30px;
+            margin: 60px auto;
+            border-radius: 10px;
+            box-shadow: none; /* Remove the white box shadow */
+        }
+
+        h1 {
+            color: #ff7e5f;
+            margin-bottom: 20px;
+            font-size: 50px;
+            font-weight: bold;
+            text-transform: uppercase;
+            
+        }
+
+        /* Animacija za fade-in efekt */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 8px;
+            color: #fafafa;
+        }
+
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #ff7e5f;
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 16px;
+            width: 100%;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #462a00;
+        }
+
+        h2 {
+            text-align: center;
+            color: #fff;
+            margin-top: 30px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        li {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            color: #333;
+        }
+
+        li strong {
+            font-size: 18px;
+            color: #000;
+        }
+
+        @media (max-width: 500px) {
+            .search-container {
+                width: 90%;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="search-container">
+        <h1>Najdi učitelja</h1>
+
+        <form action="/search" method="POST">
+            <label for="skill">Kaj se želiš naučiti?</label>
+            <select name="skill" id="skill" required>
+                {% for skill in skills %}
+                    <option value="{{ skill }}">{{ skill }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">🔍 Išči učitelje</button>
+        </form>
+
+        {% if users %}
+            <h2>Rezultati iskanja</h2>
+            <ul>
+                {% for user in users %}
+                    <li>
+                        <strong>{{ user.name }}</strong><br>
+                        {{ user.ime }} zna {{ user.znam }} in<br>
+                        se želi naučiti: {{ user.zelim_se_nauciti }}<br>
+                        Če obvladaš {{ user.zelim_se_nauciti }} ga kontaktiraj preko discorda: {{ user.discord }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% elif users is not none %}
+            <p style="text-align:center; color: #555; margin-top: 20px;">Ni najdenih učiteljev za izbrano veščino.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

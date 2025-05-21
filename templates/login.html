@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+    <meta charset="UTF-8">
+    <title>Prijava - SkillSwap</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1e1e2f, #3a3a5e);
+            color: white;
+            text-align: center;
+        }
+
+        .form-container {
+            width: 400px;
+            padding: 20px;
+            margin: 50px auto;
+            border-radius: 8px;
+            text-align: left;
+            box-shadow: none;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        h1 {
+            color: #ff7e5f;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #00917d;
+        }
+
+        input[type="text"], input[type="password"] {
+            width: 97%;
+            padding: 10px;
+            margin: 5px 0 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #ff7e5f;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            border-radius: 6px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #feb47b;
+        }
+
+        @media (max-width: 500px) {
+            .form-container {
+                width: 90%;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Prijava</h1>
+        <form method="POST">
+            <label for="ime">Ime:</label><br>
+            <input type="text" id="ime" name="ime" required><br>
+
+            <label for="geslo">Geslo:</label><br>
+            <input type="password" id="geslo" name="geslo" required><br>
+
+            <button type="submit">Prijavi se</button>
+        </form>
+    </div>
+</body>
+</html>

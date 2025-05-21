@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+    <meta charset="UTF-8">
+    <title>Profil uporabnika - SkillSwap</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1e1e2f, #3a3a5e);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+
+        .profil-box {
+            background-color: #2c2c47;
+            padding: 30px 40px;
+            border-radius: 12px;
+            width: 400px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 15px;
+            color: #ff7e5f;
+        }
+
+        .podatki {
+            font-size: 16px;
+            color: #a0d8d3;
+            text-align: left;
+            margin-bottom: 25px;
+        }
+
+        .podatki strong {
+            color: #00b39f;
+        }
+
+        form label {
+            font-weight: bold;
+            color: #00b39f;
+            display: block;
+            margin-bottom: 5px;
+            text-align: left;
+        }
+
+        form input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            border: 1px solid #555;
+            background-color: #444a6e;
+            color: white;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        form input[type="text"]:focus {
+            border-color: #ff7e5f;
+        }
+
+        form button {
+            background-color: #ff7e5f;
+            border: none;
+            color: white;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+
+        form button:hover {
+            background-color: #feb47b;
+        }
+
+        img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-top: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+        }
+
+        .video-list {
+            text-align: left;
+            margin-top: 30px;
+        }
+
+        .video-list h3 {
+            color: #ff7e5f;
+            margin-bottom: 15px;
+        }
+
+        .video-list ul {
+            padding-left: 20px;
+        }
+
+        .video-list li a {
+            color: #00b39f;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .video-list li a:hover {
+            text-decoration: underline;
+        }
+
+        a {
+            display: inline-block;
+            margin: 20px 10px 0;
+            padding: 10px 25px;
+            border-radius: 6px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        a[href="/"] {
+            background-color: #00917d;
+            color: white;
+        }
+
+        a[href="/"]:hover {
+            background-color: #00b39f;
+        }
+
+        a.logout-btn {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        a.logout-btn:hover {
+            background-color: #b02a37;
+        }
+    </style>
+</head>
+<body>
+    <div class="profil-box">
+        <h1>👤 {{ uporabnik.ime }}</h1>
+        <div class="podatki">
+            <p><strong>Veščina, ki jo znaš:</strong> {{ uporabnik.znam }}</p>
+            <p><strong>Veščina, ki se je želiš naučiti:</strong> {{ uporabnik.zelim_se_nauciti }}</p>
+            <p><strong>Discord:</strong> {{ uporabnik.discord }}</p>
+        </div>
+
+        <form method="POST">
+            <label for="slika_url">Prilepi URL slike (npr. iz Imgur):</label>
+            <input type="text" name="slika_url" id="slika_url" placeholder="https://..." required>
+            <button type="submit">Naloži sliko</button>
+        </form>
+
+        {% if uporabnik.slika_url %}
+            <p><strong>Tvoja slika:</strong></p>
+            <img src="{{ uporabnik.slika_url }}" alt="Uporabniška slika">
+        {% endif %}
+
+        <div class="video-list">
+            <h3>📚 Priporočeni YouTube videi za učenje {{ uporabnik.zelim_se_nauciti }}:</h3>
+            {% if videi %}
+                <ul>
+                    {% for video in videi %}
+                        <li><a href="{{ video.video_url }}" target="_blank">{{ video.naslov }}</a></li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>Žal nismo našli videov za to temo. Poskusi kasneje!</p>
+            {% endif %}
+        </div>
+
+        <a href="/">🏠 Nazaj na začetno stran</a>
+        <a href="/logout" class="logout-btn">🚪 Odjava</a>
+    </div>
+</body>
+</html>

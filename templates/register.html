@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+    <meta charset="UTF-8">
+    <title>SkillSwap - Registracija</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1e1e2f, #3a3a5e);
+            color: white;
+            text-align: center;
+        }
+
+        .form-container {
+            width: 400px;
+            padding: 20px;
+            margin: 50px auto;
+            border-radius: 8px;
+            text-align: left;
+            box-shadow: none; /* Removed white box shadow */
+        }
+
+        h1 {
+            color: #ff7e5f;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+           
+           
+        }
+
+        /* Animacija za fade-in efekt */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #00917d;
+        }
+
+        input, select {
+            width: 97%;
+            padding: 10px;
+            margin: 5px 0 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #ff7e5f;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            border-radius: 6px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #feb47b;
+        }
+
+        @media (max-width: 500px) {
+            .form-container {
+                width: 90%;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Registracija</h1>
+        <form action="/register" method="POST">
+            <label>Ime:</label><br>
+            <input type="text" name="name" required><br>
+
+            <label for="geslo">Geslo:</label>
+            <input type="password" name="geslo" required><br>
+
+            <label>Skill, ki ga znaš:</label><br>
+            <select name="znam_izbira">
+                <option value=""> Izberi kaj znaš </option>
+                {% for skill in skills %}
+                    <option value="{{ skill }}">{{ skill }}</option>
+                {% endfor %}
+            </select><br>
+            ali vpiši svojega: <input type="text" name="znam_po_meri"><br>
+
+            <label>Skill, ki se ga želiš naučiti:</label><br>
+            <select name="zelim_izbira">
+                <option value=""> Izberi kaj se želiš naučiti </option>
+                {% for skill in skills %}
+                    <option value="{{ skill }}">{{ skill }}</option>
+                {% endfor %}
+            </select><br>
+            ali vpiši svojega: <input type="text" name="zelim_po_meri"><br>
+
+            <label>Discord username:</label><br>
+            <input type="text" name="discord" required><br>
+
+            <button type="submit">Registriraj se</button>
+        </form>
+    </div>
+</body>
+</html>
