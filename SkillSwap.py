@@ -149,11 +149,36 @@ def profil(ime):
                 if prilepljen_url:
                     krajši_url = shorten_url(prilepljen_url)
                     u['slika_url'] = krajši_url
-                    with open('users.json', 'w') as f:
-                        json.dump(uporabniki, f, indent=4)
+                
+                nov_skill = request.form.get('nov_skill')
+                if nov_skill:
+                    if 'znam' in u:
+                        if isinstance(u['znam'], list):
+                            if nov_skill not in u['znam']:
+                                u['znam'].append(nov_skill)
+                        else:
+                            if u['znam'] != nov_skill:
+                                u['znam'] = [u['znam'], nov_skill]
+                    else:
+                        u['znam'] = [nov_skill]
+                
+                nova_zelja = request.form.get('nova_zelja')
+                if nova_zelja:
+                    if 'zelim_se_nauciti' in u:
+                        if isinstance(u['zelim_se_nauciti'], list):
+                            if nova_zelja not in u['zelim_se_nauciti']:
+                                u['zelim_se_nauciti'].append(nova_zelja)
+                        else:
+                            if u['zelim_se_nauciti'] != nova_zelja:
+                                u['zelim_se_nauciti'] = [u['zelim_se_nauciti'], nova_zelja]
+                    else:
+                        u['zelim_se_nauciti'] = [nova_zelja]
+                
+                with open('users.json', 'w') as profil:
+                    json.dump(uporabniki, profil, indent=4)
+                        
 
-                else:
-                    return f"Napaka pri nalaganju slike", 400
+                
                     
             tema = u.get('zelim_se_nauciti', '')
             videi = pridobi_youtube_videe(tema, YOUTUBE_API_KLJUC)

@@ -168,6 +168,20 @@
             <p><strong>Tvoja slika:</strong></p>
             <img src="{{ uporabnik.slika_url }}" alt="Uporabniška slika">
         {% endif %}
+        <h3>Dodaj novo znanje</h3>
+
+        <form method="POST">
+            <input type="text" name="nov_skill" placeholder="Napiši novo znanje" required>
+            <button type="submit">Dodaj</button>
+        </form>
+
+        <h3>Dodaj, kaj se želiš naučiti</h3>
+        
+        <form method="POST">
+            <input type="text" name="nova_zelja" placeholder="Napiši novo veščino, ki se je želiš naučiti" required>
+            <button type="submit">Dodaj</button>
+        </form>
+
 
         <div class="video-list">
             <h3>📚 Priporočeni YouTube videi za učenje {{ uporabnik.zelim_se_nauciti }}:</h3>
