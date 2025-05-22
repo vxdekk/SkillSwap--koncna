@@ -142,37 +142,37 @@ def profil(ime):
     except FileNotFoundError:
         uporabniki = []
 
-    for u in uporabniki:
-        if u['ime'] == ime:
+    for uporabnik in uporabniki:
+        if uporabnik['ime'] == ime:
             if request.method == 'POST':
                 prilepljen_url = request.form.get('slika_url')
                 if prilepljen_url:
                     krajši_url = shorten_url(prilepljen_url)
-                    u['slika_url'] = krajši_url
+                    uporabnik['slika_url'] = krajši_url
                 
                 nov_skill = request.form.get('nov_skill')
                 if nov_skill:
-                    if 'znam' in u:
-                        if isinstance(u['znam'], list):
-                            if nov_skill not in u['znam']:
-                                u['znam'].append(nov_skill)
+                    if 'znam' in uporabnik:
+                        if isinstance(uporabnik['znam'], list):
+                            if nov_skill not in uporabnik['znam']:
+                                uporabnik['znam'].append(nov_skill)
                         else:
-                            if u['znam'] != nov_skill:
-                                u['znam'] = [u['znam'], nov_skill]
+                            if uporabnik['znam'] != nov_skill:
+                                uporabnik['znam'] = [uporabnik['znam'], nov_skill]
                     else:
-                        u['znam'] = [nov_skill]
+                        uporabnik['znam'] = [nov_skill]
                 
                 nova_zelja = request.form.get('nova_zelja')
                 if nova_zelja:
-                    if 'zelim_se_nauciti' in u:
-                        if isinstance(u['zelim_se_nauciti'], list):
-                            if nova_zelja not in u['zelim_se_nauciti']:
-                                u['zelim_se_nauciti'].append(nova_zelja)
+                    if 'zelim_se_nauciti' in uporabnik:
+                        if isinstance(uporabnik['zelim_se_nauciti'], list):
+                            if nova_zelja not in uporabnik['zelim_se_nauciti']:
+                                uporabnik['zelim_se_nauciti'].append(nova_zelja)
                         else:
-                            if u['zelim_se_nauciti'] != nova_zelja:
-                                u['zelim_se_nauciti'] = [u['zelim_se_nauciti'], nova_zelja]
+                            if uporabnik['zelim_se_nauciti'] != nova_zelja:
+                                uporabnik['zelim_se_nauciti'] = [uporabnik['zelim_se_nauciti'], nova_zelja]
                     else:
-                        u['zelim_se_nauciti'] = [nova_zelja]
+                        uporabnik['zelim_se_nauciti'] = [nova_zelja]
                 
                 with open('users.json', 'w') as profil:
                     json.dump(uporabniki, profil, indent=4)
@@ -180,9 +180,9 @@ def profil(ime):
 
                 
                     
-            tema = u.get('zelim_se_nauciti', '')
+            tema = uporabnik.get('zelim_se_nauciti', '')
             videi = pridobi_youtube_videe(tema, YOUTUBE_API_KLJUC)
-            return render_template('profile.html', uporabnik=u, videi=videi)
+            return render_template('profile.html', uporabnik=uporabnik, videi=videi)
             
 
     return "Uporabnik ni najden", 404
